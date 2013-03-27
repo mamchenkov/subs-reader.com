@@ -1,3 +1,8 @@
+# Subs Reader files
+###################
+/build.properties
+/app/Config/core.php
+
 # User specific & automatically generated files #
 #################################################
 /app/Config/database.php
