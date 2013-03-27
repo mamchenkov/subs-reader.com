@@ -7,6 +7,10 @@
 	<property name="web.group" value="apache" />
 	<property name="web.mode" value="0775" />
 
+	<property name="cake.debug" value="2" />
+	<property name="cake.salt" value="DYhG97b7qyJfIxfs7guVoUubWwvniR7G0FgaC9mi" />
+	<property name="cake.cipherSeed" value="85859309657453243496749683601" />
+
 	<!-- Override defaults with local values -->
 	<property file="build.properties" override="yes" />
 
@@ -17,10 +21,12 @@
 	</fileset>
 
 	<!-- TOP LEVEL TARGETS -->
-	<target name="install" depends="fix-permissions" description="Run installation routine" />
-	<target name="update"  depends="fix-permissions" description="Run update routine" />
+
+	<target name="install" depends="fix-permissions,cake-settings" description="Run installation routine" />
+	<target name="update"  depends="fix-permissions,cake-settings" description="Run update routine" />
 
 	<!-- UTILITY TARGETS -->
+
 	<target name="fix-permissions">
 		<chown user="${web.user}" group="${web.group}" failonerror="false">
 			<fileset refid="tmp" />
@@ -28,7 +34,12 @@
 		<chmod mode="${web.mode}" failonerror="false">
 			<fileset refid="tmp" />
 		</chmod>
-
 	</target>
 
+	<target name="cake-settings">
+		<delete file="./app/Config/core.php" failonerror="false" />
+		<copy file="./app/Config/core.php.in" tofile="./app/Config/core.php">
+			<filterchain><expandproperties /></filterchain>
+		</copy>
+	</target>
 </project>

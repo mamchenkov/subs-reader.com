@@ -1,8 +1,7 @@
 # Subs Reader files
 ###################
 /build.properties
-/app/tmp
-
+/app/Config/core.php
 
 # User specific & automatically generated files #
 #################################################
