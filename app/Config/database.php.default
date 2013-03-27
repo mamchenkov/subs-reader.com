@@ -56,13 +56,13 @@
 class DATABASE_CONFIG {
 
 	public $default = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'user',
-		'password' => 'password',
-		'database' => 'database_name',
-		'prefix' => '',
+		'datasource' => '${db.datasource}',
+		'persistent' => ${db.persistent},
+		'host' => '${db.hostname}',
+		'login' => '${db.username}',
+		'password' => '${db.password}',
+		'database' => '${db.database}',
+		'prefix' => '${db.prefix}',
 		//'encoding' => 'utf8',
 	);
 
