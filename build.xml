@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="SubsReader" default="update">
+
+	<!-- Property defaults -->
+	<property name="web.user" value="apache" />
+	<property name="web.group" value="apache" />
+	<property name="web.mode" value="0775" />
+
+	<!-- Override defaults with local values -->
+	<property file="build.properties" override="yes" />
+
+	<!-- FILESETS -->
+	<fileset id="tmp" dir="./app/tmp">
+		<include name="**" />
+		<exclude name="**/empty" />
+	</fileset>
+
+	<!-- TOP LEVEL TARGETS -->
+	<target name="install" depends="fix-permissions" description="Run installation routine" />
+	<target name="update"  depends="fix-permissions" description="Run update routine" />
+
+	<!-- UTILITY TARGETS -->
+	<target name="fix-permissions">
+		<chown user="${web.user}" group="${web.group}" failonerror="false">
+			<fileset refid="tmp" />
+		</chown>
+		<chmod mode="${web.mode}" failonerror="false">
+			<fileset refid="tmp" />
+		</chmod>
+
+	</target>
+
+</project>
