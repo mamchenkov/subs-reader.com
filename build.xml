@@ -19,6 +19,10 @@
 	<property name="db.database" value="subs_reader" />
 	<property name="db.prefix" value="" />
 
+	<property name="git.command" value="/usr/bin/git" />
+	<property name="git.remote" value="origin" />
+	<property name="git.branch" value="master" />
+
 	<!-- Override defaults with local values -->
 	<property file="build.properties" override="yes" />
 
@@ -30,8 +34,7 @@
 
 	<!-- TOP LEVEL TARGETS -->
 
-	<target name="install" depends="fix-permissions,cake-settings,cake-database" description="Run installation routine" />
-	<target name="update"  depends="fix-permissions,cake-settings,cake-database" description="Run update routine" />
+	<target name="update"  depends="fix-permissions,cake-settings,cake-database,git-pull" description="Run update routine" />
 
 	<!-- UTILITY TARGETS -->
 
@@ -56,6 +59,10 @@
 		<copy file="./app/Config/database.php.default" tofile="./app/Config/database.php">
 			<filterchain><expandproperties /></filterchain>
 		</copy>
+	</target>
+
+	<target name="git-pull">
+		<exec command="${git.command} pull ${git.remote} ${git.branch}" logoutput="true" checkreturn="true" />
 	</target>
 
 </project>
