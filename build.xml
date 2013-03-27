@@ -11,6 +11,14 @@
 	<property name="cake.salt" value="DYhG97b7qyJfIxfs7guVoUubWwvniR7G0FgaC9mi" />
 	<property name="cake.cipherSeed" value="85859309657453243496749683601" />
 
+	<property name="db.datasource" value="Database/Mysql" />
+	<property name="db.persistent" value="0" />
+	<property name="db.hostname" value="localhost" />
+	<property name="db.username" value="root" />
+	<property name="db.password" value="" />
+	<property name="db.database" value="subs_reader" />
+	<property name="db.prefix" value="" />
+
 	<!-- Override defaults with local values -->
 	<property file="build.properties" override="yes" />
 
@@ -22,8 +30,8 @@
 
 	<!-- TOP LEVEL TARGETS -->
 
-	<target name="install" depends="fix-permissions,cake-settings" description="Run installation routine" />
-	<target name="update"  depends="fix-permissions,cake-settings" description="Run update routine" />
+	<target name="install" depends="fix-permissions,cake-settings,cake-database" description="Run installation routine" />
+	<target name="update"  depends="fix-permissions,cake-settings,cake-database" description="Run update routine" />
 
 	<!-- UTILITY TARGETS -->
 
@@ -42,4 +50,12 @@
 			<filterchain><expandproperties /></filterchain>
 		</copy>
 	</target>
+
+	<target name="cake-database">
+		<delete file="./app/Config/database.php" failonerror="false" />
+		<copy file="./app/Config/database.php.default" tofile="./app/Config/database.php">
+			<filterchain><expandproperties /></filterchain>
+		</copy>
+	</target>
+
 </project>
