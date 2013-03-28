@@ -7,7 +7,32 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
+	/**
+	 * Login
+	 * 
+	 * @return void
+	 */
+	public function login() {
+		if ($this->request->is('post')) {
+			if ($this->Auth->login()) {
+				return $this->redirect($this->Auth->redirectUrl());
+			}
+			else {
+				$this->Session->setFlash(__('Username or password is incorrect'));
+				return $this->redirect('/');
+			}
+		}
+	}
 
+	/**
+	 * Logout
+	 * 
+	 * @return void
+	 */
+	public function logout() {
+		$this->redirect($this->Auth->logout());
+	}
+	
 	/**
 	 * Register
 	 *

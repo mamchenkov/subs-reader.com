@@ -1,3 +1,7 @@
+<?php
+$user = AuthComponent::user();
+$isLoggedIn = empty($user) ? false : true;
+?>
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
@@ -25,11 +29,26 @@
 						</ul>
 					</li>
 				</ul>
-				<form class="navbar-form pull-right" method="post" action="<?php echo $this->Html->url('/users/login'); ?>">
-					<input class="span2" type="text" placeholder="Email" name="User[email]">
-					<input class="span2" type="password" placeholder="Password" name="User[password]">
-					<button type="submit" class="btn">Sign in</button>
-				</form>
+
+				<?php
+					if ($isLoggedIn) {
+						?>
+						<div class="pull-right navbar-text">
+							Logged in as <?php echo $user['name']; ?>. <?php echo $this->Html->link('Logout', '/users/logout'); ?>
+						</div>
+						<?php
+					}
+					else {
+						?>
+						<form class="navbar-form pull-right" method="post" action="<?php echo $this->Html->url('/users/login'); ?>">
+							<input class="span2" type="text" placeholder="Email" name="User[email]">
+							<input class="span2" type="password" placeholder="Password" name="User[password]">
+							<button type="submit" class="btn">Sign in</button>
+						</form>
+						<?php
+					}
+				?>
+
 			</div><!--/.nav-collapse -->
 		</div>
 	</div>
