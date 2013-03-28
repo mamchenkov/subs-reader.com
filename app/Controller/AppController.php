@@ -41,6 +41,8 @@ class AppController extends Controller {
 					'fields' => array('username' => 'email'),
 				),
 			),
+			'logoutRedirect' => '/',
+			'loginRedirect' => '/users/home',
 		),
 	);
 

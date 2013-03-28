@@ -50,6 +50,14 @@ class UsersController extends AppController {
 		}
 	}
 
+	/**
+	 * Home
+	 * 
+	 * @return void
+	 */
+	public function home() {
+	}
+	
 /**
  * edit method
  *
