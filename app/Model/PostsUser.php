@@ -8,11 +8,11 @@ App::uses('AppModel', 'Model');
  */
 class PostsUser extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'post_id' => array(
 			'numeric' => array(
@@ -38,11 +38,11 @@ class PostsUser extends AppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
-/**
- * belongsTo associations
- *
- * @var array
- */
+	/**
+	 * belongsTo associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'Post' => array(
 			'className' => 'Post',

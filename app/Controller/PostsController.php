@@ -7,23 +7,23 @@ App::uses('AppController', 'Controller');
  */
 class PostsController extends AppController {
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
 		$this->Post->recursive = 0;
 		$this->set('posts', $this->paginate());
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * view method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function view($id = null) {
 		if (!$this->Post->exists($id)) {
 			throw new NotFoundException(__('Invalid post'));
@@ -32,11 +32,11 @@ class PostsController extends AppController {
 		$this->set('post', $this->Post->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
+	/**
+	 * add method
+	 *
+	 * @return void
+	 */
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Post->create();
@@ -52,13 +52,13 @@ class PostsController extends AppController {
 		$this->set(compact('feeds', 'users'));
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * edit method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function edit($id = null) {
 		if (!$this->Post->exists($id)) {
 			throw new NotFoundException(__('Invalid post'));
@@ -79,13 +79,13 @@ class PostsController extends AppController {
 		$this->set(compact('feeds', 'users'));
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * delete method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function delete($id = null) {
 		$this->Post->id = $id;
 		if (!$this->Post->exists()) {
