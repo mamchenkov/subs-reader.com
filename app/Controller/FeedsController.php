@@ -7,23 +7,23 @@ App::uses('AppController', 'Controller');
  */
 class FeedsController extends AppController {
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
 		$this->Feed->recursive = 0;
 		$this->set('feeds', $this->paginate());
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * view method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function view($id = null) {
 		if (!$this->Feed->exists($id)) {
 			throw new NotFoundException(__('Invalid feed'));
@@ -32,11 +32,11 @@ class FeedsController extends AppController {
 		$this->set('feed', $this->Feed->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
+	/**
+	 * add method
+	 *
+	 * @return void
+	 */
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Feed->create();
@@ -51,13 +51,13 @@ class FeedsController extends AppController {
 		$this->set(compact('users'));
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * edit method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function edit($id = null) {
 		if (!$this->Feed->exists($id)) {
 			throw new NotFoundException(__('Invalid feed'));
@@ -77,13 +77,13 @@ class FeedsController extends AppController {
 		$this->set(compact('users'));
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * delete method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function delete($id = null) {
 		$this->Feed->id = $id;
 		if (!$this->Feed->exists()) {
