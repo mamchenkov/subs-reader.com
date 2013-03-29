@@ -1,0 +1,3 @@
+[submodule "app/Vendor/SimplePie"]
+	path = app/Vendor/SimplePie
+	url = git://github.com/simplepie/simplepie.git
