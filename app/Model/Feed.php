@@ -188,4 +188,25 @@ class Feed extends AppModel {
 
 		return $result;
 	}
+
+	/**
+	 * Find feed candidates to fetch
+	 * 
+	 * @todo Move hardcoded limit to configuration
+	 * 
+	 * @param numeric $limit Number of candidates to find
+	 * @return array
+	 */
+	public function getFetchCandidates($limit = 10) {
+		$result = array();
+
+		$result = $this->find('list', array(
+			'order' => 'last_fetch_attempt DESC',
+			'limit' => $limit,
+			'recursive' => -1,
+			'fields' => 'url',
+		));
+
+		return $result;
+	}
 }
