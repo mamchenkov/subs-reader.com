@@ -11,7 +11,7 @@
 		</div>
 
 		<div class="well">
-			<ul class="nav nav-list">
+			<ul id="user_feeds" class="nav nav-list">
 				<li class="nav-header">Feeds</li>
 			</ul>
 		</div>

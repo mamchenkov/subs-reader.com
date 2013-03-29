@@ -57,7 +57,25 @@ class UsersController extends AppController {
 	 */
 	public function home() {
 	}
+
+	/**
+	 * Get feeds
+	 * 
+	 * @return void
+	 */
+	public function get_feeds() {
+
+		$this->layout  = 'ajax';
 	
+		$feeds = array();
+		$user = AuthComponent::user();
+		if (!empty($user)) {
+			$feeds = $this->User->getFeeds($user['id']);
+		}
+
+		$this->set('feeds', $feeds);
+	}
+
 	/**
 	 * edit method
 	 *
