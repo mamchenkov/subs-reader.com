@@ -105,4 +105,53 @@ class User extends AppModel {
 		}
 		return true;
 	}
+
+	/**
+	 * afterSave() callback
+	 * 
+	 * @param boolean $created True if record was created
+	 * @return void
+	 */
+	public function afterSave($created) {
+		if ($created) {
+			$result = $this->subscribeToFeed('http://mamchenkov.net/wordpress/feed/');
+			debug($result);
+		}
+	}
+	
+	/**
+	 * Subscribe to feed
+	 * 
+	 * @param string $feedUrl Feed Url
+	 * @param numeric $userId User ID (optional)
+	 * @return boolean True on success, false otherwise
+	 * @throws InvalidArgumentException
+	 * @throws RuntimeException
+	 */
+	public function subscribeToFeed($feedUrl, $userId = null) {
+		$result = false;
+
+		if (empty($userId)) { $userId = $this->id; }
+
+		if (empty($userId))  { throw new InvalidArgumentException("Missing user ID"); }
+		if (empty($feedUrl)) { throw new InvalidArgumentException("Missing feed URL"); }
+
+		try {
+			$feed = ClassRegistry::init('Feed');
+			$feedId = $feed->add($feedUrl);
+			
+			$subscription = array();
+			$subscription['User'] = array();
+			$subscription['User']['id'] = $userId;
+			$subscription['Feed'] = array();
+			$subscription['Feed']['id'] = $feedId;
+
+			$result = $this->save($subscription);
+		}
+		catch (Exception $e) {
+			// NOP
+		}
+		
+		return $result;
+	}
 }
