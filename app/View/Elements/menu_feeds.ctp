@@ -15,7 +15,9 @@ if (empty($feeds)) {
 		if (!empty($feeds)) {
 			foreach ($feeds as $feed) {
 				$feedTitle = (strlen($feed['Feed']['title']) > $max_length) ? substr($feed['Feed']['title'], 0, $max_length - strlen($suffix)) . $suffix : $feed['Feed']['title'];
-				print "<li><a title='" . $feed['Feed']['title'] . "' href='#'>" . $feedTitle . "</a></li>";
+				print "<li>";
+				print $this->Html->link($feedTitle, '/feeds/view/' . $feed['Feed']['id'], array('title'=>$feed['Feed']['url']));
+				print "</li>";
 			}
 		}
 	?>
