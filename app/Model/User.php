@@ -154,4 +154,31 @@ class User extends AppModel {
 		
 		return $result;
 	}
+
+	/**
+	 * Get a list of user feeds
+	 * 
+	 * @param numeric $userId User Id (optional)
+	 * @return array
+	 */
+	public function getFeeds($userId) {
+		$result = array();
+
+		if (empty($userId)) {
+			$userId = $this->id;
+		}
+
+		if (empty($userId))  { throw new InvalidArgumentException("Missing user ID"); }
+
+		$subscriptions = $this->FeedsUser->findByUser_id($userId);
+		if (!empty($subscriptions)) {
+			foreach ($subscriptions as $subscription) {
+				$feed = $this->Feed->findById($subscription['feed_id']);
+				if (!empty($feed)) {
+					$result[] = $feed;
+				}
+			}
+		}
+		return $result;
+	}
 }
