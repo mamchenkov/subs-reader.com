@@ -188,4 +188,68 @@ class Feed extends AppModel {
 
 		return $result;
 	}
+
+	/**
+	 * Find feed candidates to fetch
+	 * 
+	 * @todo Move hardcoded limit to configuration
+	 * 
+	 * @param numeric $limit Number of candidates to find
+	 * @return array
+	 */
+	public function getFetchCandidates($limit = 10) {
+		$result = array();
+
+		$result = $this->find('list', array(
+			'order' => 'last_fetch_attempt DESC',
+			'limit' => $limit,
+			'recursive' => -1,
+			'fields' => 'url',
+		));
+
+		return $result;
+	}
+
+	/**
+	 * Check if user subscribed to the feed
+	 * 
+	 * @param numeric $user_id ID of the user
+	 * @param numeric $feed_id ID of the feed
+	 * @return boolean True if subscribed, false otherwise
+	 */
+	public function isUserSubscribed($user_id, $feed_id) {
+		$result = false;
+
+		$subscriptions = $this->FeedsUser->find('first', array(
+			'conditions' => array(
+				'AND' => array(
+					'FeedsUser.user_id' => $user_id,
+					'FeedsUser.feed_id' => $feed_id,
+				),
+			),
+			'recursive' => -1,
+		));
+
+		if (!empty($subscriptions)) {
+			$result = true;
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get feed posts for given user
+	 * 
+	 * @param numeric $user_id ID of the user
+	 * @param numeric $feed_id ID of the feed
+	 * @return array
+	 */
+	public function getUserPosts($user_id, $feed_id) {
+		$result = array();
+
+		// TODO : Exclude posts read by the user
+		$result = $this->Post->findAllByFeedId($feed_id);
+
+		return $result;
+	}
 }
