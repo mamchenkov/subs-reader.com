@@ -71,9 +71,10 @@ class FetchFeedsShell extends AppShell {
 					$postUpdate['Post']['feed_id'] = $feedId;
 					$postUpdate['Post']['url'] = $item->get_permalink();
 					$postUpdate['Post']['title'] = $item->get_title();
+					$postUpdate['Post']['guid'] = $item->get_id();
 					$postUpdate['Post']['author'] = $item->get_author()->get_name();
 					$postUpdate['Post']['published'] = $item->get_date();
-					$postUpdate['Post']['description'] = $item->get_description();
+					$postUpdate['Post']['content'] = $item->get_content();
 					
 					$post->create();
 					$post->save($postUpdate);
