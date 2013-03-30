@@ -20,6 +20,7 @@
 	<property name="db.prefix" value="" />
 
 	<property name="php.command" value="/usr/bin/php" />
+	<property name="yes.command" value="/usr/bin/yes" />
 
 	<property name="git.command" value="/usr/bin/git" />
 	<property name="git.remote" value="origin" />
@@ -70,6 +71,6 @@
 	</target>
 
 	<target name="schema-update">
-		<exec command="${php.command} ./app/Console/cake.php schema update" logoutput="true" checkreturn="true" />
+		<exec command="${yes.command} y | ${php.command} ./app/Console/cake.php schema update" logoutput="true" checkreturn="true" />
 	</target>
 </project>
