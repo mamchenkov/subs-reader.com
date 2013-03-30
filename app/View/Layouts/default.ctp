@@ -45,7 +45,7 @@
 	<body>
 
 
-		<?php echo $this->element('main_menu'); ?>
+		<?php echo $this->element('menu_main'); ?>
 			
 		<div class="container">
 			<?php echo $this->Session->flash(); ?>
