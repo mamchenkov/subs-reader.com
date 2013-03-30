@@ -3,6 +3,7 @@
  * Fetch feeds
  */
 
+App::uses('CakeTime', 'Utility');
 App::import('Vendor', 'SimplePie/autoloader');
 
 class FetchFeedsShell extends AppShell {
@@ -66,14 +67,24 @@ class FetchFeedsShell extends AppShell {
 				foreach ($fetcher->get_items() as $item) {
 					$post = ClassRegistry::init('Post');
 
+					$existingPost = $post->find('first', array(
+						'conditions' => array(
+							'Post.feed_id' => $feedId,
+							'Post.guid' => $item->get_id(),
+						),
+					));
+
 					$postUpdate = array();
 					$postUpdate['Post'] = array();
+					if (!empty($existingPost)) {
+						$postUpdate['Post']['id'] = $existingPost['Post']['id'];
+					}
 					$postUpdate['Post']['feed_id'] = $feedId;
 					$postUpdate['Post']['url'] = $item->get_permalink();
 					$postUpdate['Post']['title'] = $item->get_title();
 					$postUpdate['Post']['guid'] = $item->get_id();
 					$postUpdate['Post']['author'] = $item->get_author()->get_name();
-					$postUpdate['Post']['published'] = $item->get_date();
+					$postUpdate['Post']['published'] = date('Y-m-d H:i:s', CakeTime::fromString($item->get_date()));
 					$postUpdate['Post']['content'] = $item->get_content();
 					
 					$post->create();
