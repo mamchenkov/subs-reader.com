@@ -6,7 +6,7 @@ App::uses('CakeTime', 'Utility');
 		<?php echo $this->element('menu_side'); ?>
 	</div>
 	<div class="span9">
-		<h4><?php echo $this->Html->link($feed['Feed']['title'], $feed['Feed']['link'], array('target' => '_blank')); ?></h4>
+		<h3><?php echo $this->Html->link($feed['Feed']['title'], $feed['Feed']['link'], array('target' => '_blank')); ?></h3>
 		<div class="media">
 		<?php
 			if (empty($posts)) {
