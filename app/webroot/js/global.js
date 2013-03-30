@@ -1,6 +1,11 @@
 $(document).ready(function() {
+	enableKeyboard();
 	getFeeds();
 });
+
+function enableKeyboard() {
+	$('.media-body').jknavigable();
+}
 
 function getFeeds() {
 	$.ajax({
